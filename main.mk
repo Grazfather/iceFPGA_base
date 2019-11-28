@@ -31,6 +31,13 @@ all: $(PROJ).rpt $(PROJ).bin
 %_syntb.vcd: %_syntb
 	vvp -N $< +vcd=$@
 
+VINC=/usr/local/share/verilator/include
+obj_dir/V%.cpp: src/%.v
+	verilator -Wall --trace -cc $^
+
+V%: sim/%.cpp obj_dir/V%.cpp
+	g++ -I${VINC} -I obj_dir/ ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp $< obj_dir/$@*.cpp -o $@
+
 prog: $(PROJ).bin
 	iceprog $<
 

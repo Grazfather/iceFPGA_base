@@ -4,4 +4,4 @@
 *.log
 *.rpt
 *.vcd
-
+obj_dir/
