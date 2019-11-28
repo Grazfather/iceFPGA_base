@@ -1,4 +1,5 @@
 `default_nettype none
+
 module top(
     input wire clk,
     input wire rst,

@@ -7,14 +7,8 @@ all: $(PROJ).rpt $(PROJ).bin
 %.json: $(ADD_SRC) $(ADD_DEPS)
 	yosys -ql $*.log -p 'synth_ice40 -top top -json $@' $(ADD_SRC)
 
-ifeq ($(USE_ARACHNEPNR),)
 %.asc: $(PIN_DEF) %.json
 	nextpnr-ice40 --$(DEVICE) --json $(filter-out $<,$^) --package sg48 --pcf $< --asc $@
-else
-%.asc: $(PIN_DEF) %.blif
-	arachne-pnr -d $(subst up,,$(subst hx,,$(subst lp,,$(DEVICE)))) -o $@ -p $^
-endif
-
 
 %.bin: %.asc
 	icepack $< $@
