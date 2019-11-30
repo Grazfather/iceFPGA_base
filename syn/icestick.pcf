@@ -1,0 +1,72 @@
+# 12 MHz clock
+set_io CLK_IN 21
+set_io i_clk 21
+
+# Pmod connector
+set_io PIO1_02 78 # Pin 1
+set_io PIO1_03 79 # Pin 2
+set_io PIO1_04 80 # Pin 3
+set_io PIO1_05 81 # Pin 4
+set_io PIO1_06 87 # Pin 7
+set_io PIO1_07 88 # Pin 8
+set_io PIO1_08 90 # Pin 9
+set_io PIO1_09 91 # Pin 10
+
+# LEDs
+set_io GLED5 95
+set_io RLED4 96
+set_io RLED3 97
+set_io RLED2 98
+set_io RLED1 99
+set_io led[0] 95
+set_io led[1] 96
+set_io led[2] 97
+set_io led[3] 98
+set_io led[4] 99
+
+# IrDA
+set_io IR_TX 105
+set_io IR_RX 106
+set_io IR_SD 107
+
+# J1 connector
+set_io J1_3 112
+set_io J1_4 113
+set_io J1_5 114
+set_io J1_6 115
+set_io J1_7 116
+set_io J1_8 117
+set_io J1_9 118
+set_io J1_10 119
+
+# J3 connector
+set_io J3_10 44
+set_io J3_9 45
+set_io J3_8 47
+set_io J3_7 48
+set_io J3_6 56
+set_io J3_5 60
+set_io J3_4 61
+set_io J3_3 62
+
+# SPI
+#set_io SPI_SCK 70
+#set_io SPI_SI 68
+#set_io SPI_SO 67
+#set_io SPI_SS_B 71
+
+# Configuration pins
+#set_io CDONE 65
+#set_io CRESET_B 66
+
+# FTDI Port B UART
+#set_io DCDn 1
+#set_io DSRn 2
+#set_io DTRn 3
+#set_io CTSn 4
+#set_io RTSn 7
+set_io o_tx 8
+set_io TX 8
+set_io i_rx 9
+set_io RX 9
+
