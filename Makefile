@@ -1,5 +1,6 @@
 PROJ = base
 ADD_SRC = src/top.v
+TOPMODULE = top
 
 # Icebreaker
 PIN_DEF = syn/icebreaker.pcf

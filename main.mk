@@ -16,9 +16,6 @@ all: $(PROJ).rpt $(PROJ).bin
 %.rpt: %.asc
 	icetime -d $(DEVICE) -mtr $@ $<
 
-%_tb: sim/%_tb.v $(ADD_SRC)
-	iverilog -o $@ $^
-
 %_tb.vcd: %_tb
 	vvp -N $< +vcd=$@
 
@@ -31,12 +28,26 @@ all: $(PROJ).rpt $(PROJ).bin
 %_syntb.vcd: %_syntb
 	vvp -N $< +vcd=$@
 
+# Verilator simulator
 VINC=/usr/local/share/verilator/include
-obj_dir/V%.cpp: src/%.v
-	verilator -Wall --trace -cc $^
+VFLAGS=-O3 -Wall --trace --exe
+VDIRFB=./obj_dir
+CC=g++
+CFLAGS=-g -Wall -I${VINC} -I${VDIRFB}
 
-V%: sim/%.cpp obj_dir/V%.cpp
-	g++ -I${VINC} -I obj_dir/ ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp $< obj_dir/$@*.cpp -o $@
+# Generate verilator tb class
+${VDIRFB}/V${TOPMODULE}.cpp: $(ADD_SRC)
+	verilator ${VFLAGS} -cc $^
+
+# Build the sim binary
+${TOPMODULE}_tb: sim/${TOPMODULE}.cpp ${VDIRFB}/V${TOPMODULE}.cpp ${COSIMS} sim/testbench.h
+	${CC} ${CFLAGS} ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp $< ${VDIRFB}/V${TOPMODULE}.cpp ${VDIRFB}/V${TOPMODULE}__*.cpp ${COSIMS} -o $@
+
+verify: sim/${TOPMODULE}.sby
+	sby -f $^ -t || true
+
+verify-%: sim/%.sby
+	sby -f $^ -t || true
 
 prog: $(PROJ).bin
 	iceprog $<

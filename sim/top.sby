@@ -1,0 +1,18 @@
+[tasks]
+prf
+cvr
+
+[options]
+# modes bmc, cover, or prove
+cvr: mode cover
+prf: mode prove
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal top.v
+prep -top top
+
+[files]
+src/top.v

@@ -5,3 +5,4 @@
 *.rpt
 *.vcd
 obj_dir/
+*_tb*
